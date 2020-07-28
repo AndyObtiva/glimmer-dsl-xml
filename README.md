@@ -1,4 +1,4 @@
-# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML 0.1.0 (& HTML)
+# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML 0.2.0 (& HTML)
 [![Gem Version](https://badge.fury.io/rb/glimmer-dsl-xml.svg)](http://badge.fury.io/rb/glimmer-dsl-xml)
 [![Travis CI](https://travis-ci.com/AndyObtiva/glimmer-dsl-xml.svg?branch=master)](https://travis-ci.com/github/AndyObtiva/glimmer-dsl-xml)
 [![Join the chat at https://gitter.im/AndyObtiva/glimmer](https://badges.gitter.im/AndyObtiva/glimmer.svg)](https://gitter.im/AndyObtiva/glimmer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -20,26 +20,34 @@ Please follow these instructions to make the `glimmer` command available on your
 
 Run this command to install directly:
 ```
-jgem install glimmer-dsl-xml -v 0.1.0
+jgem install glimmer-dsl-xml -v 0.2.0
 ```
 
 `jgem` is JRuby's version of `gem` command. 
 RVM allows running `gem` as an alias.
 Otherwise, you may also run `jruby -S gem install ...`
 
-Add `require 'glimmer-dsl-xml'` to your code after `require glimmer-dsl-swt` or `require glimmer-dsl-opal`
+Add `require 'glimmer-dsl-xml'` to your code.
+
+When using with [Glimmer DSL for SWT](https://github.com/AndyObtiva/glimmer-dsl-swt) or [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal), make sure it is added after `require glimmer-dsl-swt` and `require glimmer-dsl-opal` to give it a lower precedence than them when processed by the Glimmer DSL engine.
+
+That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
 ### Option 2: Bundler
 
-Add the following to `Gemfile` after `glimmer-dsl-swt` or `glimmer-dsl-opal`:
+Add the following to `Gemfile` (after `glimmer-dsl-swt` and/or `glimmer-dsl-opal` if included too):
 ```
-gem 'glimmer-dsl-xml', '~> 0.1.0'
+gem 'glimmer-dsl-xml', '~> 0.2.0'
 ```
 
 And, then run:
 ```
 jruby -S bundle install
 ```
+
+Require in your code via Bundler (e.g. `require 'bundler'; Bundler.require`) or add `require 'glimmer-dsl-xml'` to your code.
+
+When using with [Glimmer DSL for SWT](https://github.com/AndyObtiva/glimmer-dsl-swt) or [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal), make sure it is loaded after `glimmer-dsl-swt` and `glimmer-dsl-opal` to give it a lower precedence than them when processed by the Glimmer DSL engine.
 
 That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
@@ -157,14 +165,13 @@ These features have been suggested. You might see them in a future version of Gl
 
 * [Andy Maleh](https://github.com/AndyObtiva) (Founder)
 
-[Click here to view contributor commits.](https://github.com/AndyObtiva/glimmer/graphs/contributors)
+[Click here to view contributor commits.](https://github.com/AndyObtiva/glimmer-dsl-xml/graphs/contributors)
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](LICENSE.txt)
 
-Copyright (c) 2020 - Andy Maleh. 
-See [LICENSE.txt](LICENSE.txt) for further details.
+Copyright (c) 2020 - Andy Maleh.
 
 --
 

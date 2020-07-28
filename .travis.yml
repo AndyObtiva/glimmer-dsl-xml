@@ -1,22 +1,18 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=490a0fe5dffcf934f1bb17cdfb13b8c1c7b5ff9fdfffa48a205c019be3879886
+    - CC_TEST_REPORTER_ID=142d86724a812b78a76db5fd1087666a047ae01d734ec4ce471c097ebd7028ad
     - JRUBY_OPTS="--debug"
 language: ruby
 rvm:
-  - jruby-9.2.11.1
-jobs:
-  include:
-    - os: linux
-      dist: xenial
-      services: 
-        - xvfb
-      before_script:
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build
-      script:
-        - bundle exec rspec
-      after_script:
-        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-    - os: osx
+  - jruby-9.2.12.0
+os: linux
+dist: xenial
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rake
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- --repo AndyObtiva/glimmer-dsl-xml --commit $TRAVIS_COMMIT --lcov coverage/lcov/glimmer-dsl-xml.lcov

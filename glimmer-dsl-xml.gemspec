@@ -72,4 +72,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rdoc>.freeze, [">= 6.2.1", "< 7.0.0"])
   end
 end
-
