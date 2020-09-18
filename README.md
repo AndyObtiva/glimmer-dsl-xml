@@ -10,8 +10,8 @@
 Within the context of desktop development, Glimmer DSL for XML is useful in providing XML data for the [SWT Browser widget](https://github.com/AndyObtiva/glimmer-dsl-swt/tree/master#browser-widget).
 
 Other [Glimmer](https://github.com/AndyObtiva/glimmer) DSL gems:
-- [glimmer-dsl-swt](https://github.com/AndyObtiva/glimmer-dsl-swt): Glimmer DSL for SWT (JRuby Desktop GUI)
-- [glimmer-dsl-tk](https://github.com/AndyObtiva/glimmer-dsl-tk): Glimmer DSL for Tk (Ruby Desktop GUI)
+- [glimmer-dsl-swt](https://github.com/AndyObtiva/glimmer-dsl-swt): Glimmer DSL for SWT (JRuby Desktop Development GUI Library)
+- [glimmer-dsl-tk](https://github.com/AndyObtiva/glimmer-dsl-tk): Glimmer DSL for Tk (Ruby Desktop Development GUI Library)
 - [glimmer-dsl-opal](https://github.com/AndyObtiva/glimmer-dsl-opal): Glimmer DSL for Opal (Web GUI Adapter for Desktop Apps)
 - [glimmer-dsl-css](https://github.com/AndyObtiva/glimmer-dsl-css): Glimmer DSL for CSS (Cascading Style Sheets)
 
@@ -23,12 +23,10 @@ Please follow these instructions to make the `glimmer` command available on your
 
 Run this command to install directly:
 ```
-jgem install glimmer-dsl-xml -v 1.0.0
+gem install glimmer-dsl-xml -v 1.0.0
 ```
 
-`jgem` is JRuby's version of `gem` command. 
-RVM allows running `gem` as an alias.
-Otherwise, you may also run `jruby -S gem install ...`
+Note: When using JRuby, `jgem` is JRuby's version of `gem` command. RVM allows running `gem` as an alias in JRuby. Otherwise, you may also run `jruby -S gem install ...`
 
 Add `require 'glimmer-dsl-xml'` to your code.
 
@@ -45,8 +43,10 @@ gem 'glimmer-dsl-xml', '~> 1.0.0'
 
 And, then run:
 ```
-jruby -S bundle install
+bundle install
 ```
+
+Note: When using JRuby, prefix with `jruby -S`
 
 Require in your code via Bundler (e.g. `require 'bundler'; Bundler.require`) or add `require 'glimmer-dsl-xml'` to your code.
 
