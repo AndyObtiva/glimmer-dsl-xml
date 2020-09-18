@@ -1,4 +1,4 @@
-# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML 0.2.0 (& HTML)
+# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML 1.0.0 (& HTML)
 [![Gem Version](https://badge.fury.io/rb/glimmer-dsl-xml.svg)](http://badge.fury.io/rb/glimmer-dsl-xml)
 [![Travis CI](https://travis-ci.com/AndyObtiva/glimmer-dsl-xml.svg?branch=master)](https://travis-ci.com/github/AndyObtiva/glimmer-dsl-xml)
 [![Coverage Status](https://coveralls.io/repos/github/AndyObtiva/glimmer-dsl-xml/badge.svg?branch=master)](https://coveralls.io/github/AndyObtiva/glimmer-dsl-xml?branch=master)
@@ -7,7 +7,7 @@
 
 [Glimmer](https://github.com/AndyObtiva/glimmer) DSL for XML provides Ruby syntax for building XML (eXtensible Markup Language) documents.
 
-Within the context of desktop development, Glimmer DSL for XML is useful in providing XML data for the [SWT Browser widget](https://github.com/AndyObtiva/glimmer/tree/master#browser-widget).
+Within the context of desktop development, Glimmer DSL for XML is useful in providing XML data for the [SWT Browser widget](https://github.com/AndyObtiva/glimmer-dsl-swt/tree/master#browser-widget).
 
 Other [Glimmer](https://github.com/AndyObtiva/glimmer) DSL gems:
 - [glimmer-dsl-swt](https://github.com/AndyObtiva/glimmer-dsl-swt): Glimmer DSL for SWT (JRuby Desktop GUI)
@@ -23,7 +23,7 @@ Please follow these instructions to make the `glimmer` command available on your
 
 Run this command to install directly:
 ```
-jgem install glimmer-dsl-xml -v 0.2.0
+jgem install glimmer-dsl-xml -v 1.0.0
 ```
 
 `jgem` is JRuby's version of `gem` command. 
@@ -40,7 +40,7 @@ That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
 Add the following to `Gemfile` (after `glimmer-dsl-swt` and/or `glimmer-dsl-opal` if included too):
 ```
-gem 'glimmer-dsl-xml', '~> 0.2.0'
+gem 'glimmer-dsl-xml', '~> 1.0.0'
 ```
 
 And, then run:
@@ -66,7 +66,7 @@ Here are all the Glimmer XML DSL top-level keywords:
 
 Element properties are typically passed as a key/value hash (e.g. `section(id: 'main', class: 'accordion')`) . However, for properties like "selected" or "checked", you must leave value `nil` or otherwise pass in front of the hash (e.g. `input(:checked, type: 'checkbox')` )
 
-Example (basic HTML / you may copy/paste in [`girb`](#girb-glimmer-irb-command)):
+Example (basic HTML):
 
 ```ruby
 @xml = html {
@@ -86,7 +86,7 @@ Output:
 <html><head><meta name="viewport" content="width=device-width, initial-scale=2.0" /></head><body><h1>Hello, World!</h1></body></html>
 ```
 
-Example (explicit XML tag / you may copy/paste in [`girb`](#girb-glimmer-irb-command)):
+Example (explicit XML tag):
 
 ```ruby
 puts tag(:_name => "DOCUMENT")
@@ -98,7 +98,7 @@ Output:
 <DOCUMENT/>
 ```
 
-Example (XML namespaces using `name_space` keyword / you may copy/paste in [`girb`](#girb-glimmer-irb-command)):
+Example (XML namespaces using `name_space` keyword):
 
 ```ruby
 @xml = name_space(:w3c) {
@@ -116,7 +116,7 @@ Output:
 <w3c:html id="thesis" class="document"><w3c:body id="main"></w3c:body></w3c:html>
 ```
 
-Example (XML namespaces using dot operator / you may copy/paste in [`girb`](#girb-glimmer-irb-command)):
+Example (XML namespaces using dot operator):
 
 ```ruby
 @xml = tag(:_name => "DOCUMENT") {
@@ -142,9 +142,9 @@ Learn more about how to use this DSL alongside other Glimmer DSLs:
 
 ### Issues
 
-You may submit [issues](https://github.com/AndyObtiva/glimmer/issues) on [GitHub](https://github.com/AndyObtiva/glimmer/issues).
+You may submit [issues](https://github.com/AndyObtiva/glimmer-dsl-xml/issues) on [GitHub](https://github.com/AndyObtiva/glimmer-dsl-xml/issues).
 
-[Click here to submit an issue.](https://github.com/AndyObtiva/glimmer/issues)
+[Click here to submit an issue.](https://github.com/AndyObtiva/glimmer-dsl-xml/issues)
 
 ### Chat
 
