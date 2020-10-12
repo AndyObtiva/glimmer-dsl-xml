@@ -67,13 +67,19 @@ Here are all the Glimmer XML DSL top-level keywords:
 
 Element properties are typically passed as a key/value hash (e.g. `section(id: 'main', class: 'accordion')`) . However, for properties like "selected" or "checked", you must leave value `nil` or otherwise pass in front of the hash (e.g. `input(:checked, type: 'checkbox')` )
 
-Example (full HTML document):
+You may try the following examples in IRB after installing the [glimmer-dsl-xml](https://rubygems.org/gems/glimmer-dsl-xml) gem.
+
+Just make sure to require the library and include Glimmer first:
 
 ```ruby
 require 'glimmer-dsl-xml'
 
 include Glimmer
+```
 
+Example (full HTML document):
+
+```ruby
 @html = html {
   head {
     meta(name: "viewport", content: "width=device-width, initial-scale=2.0")
@@ -82,6 +88,7 @@ include Glimmer
     h1 { "Hello, World!" }
   }
 }
+
 puts @html
 ```
 
@@ -94,13 +101,10 @@ Output:
 Example (partial HTML fragment):
 
 ```ruby
-require 'glimmer-dsl-xml'
-
-include Glimmer
-
 @html = html {
   h1 { "Hello, World!" }
 }
+
 puts @html
 ```
 
@@ -113,35 +117,29 @@ Output:
 Example (basic XML):
 
 ```ruby
-require 'glimmer-dsl-xml'
-
-include Glimmer
-
 @xml = xml {
-  h1 { "Hello, World!" }
+  greeting { "Hello, World!" }
 }
+
 puts @xml
 ```
 
 Output:
 
 ```
-<h1>Hello, World!</h1>
+<greeting>Hello, World!</greeting>
 ```
 
 Example (XML namespaces using `name_space` keyword):
 
 ```ruby
-require 'glimmer-dsl-xml'
-
-include Glimmer
-
 @xml = name_space(:acme) {
   product(:id => "thesis", :class => "document") {
     component(:id => "main") {
     }
   }
 }
+
 puts @xml
 ```
 
@@ -153,15 +151,12 @@ Output:
 
 Example (XML namespaces using dot operator):
 
-```ruby
-  require 'glimmer-dsl-xml'
-  
-  include Glimmer
-  
+```ruby  
   @xml = xml {
     document.body(document.id => "main") {
     }
   }
+  
   puts @xml
 ```
 
@@ -174,10 +169,6 @@ Output:
 Example (custom tag):
 
 ```ruby
-require 'glimmer-dsl-xml'
-
-include Glimmer
-
 puts tag(:_name => "p") {"p is a reserved keyword in Ruby"}
 ```
 
