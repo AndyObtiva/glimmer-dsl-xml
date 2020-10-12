@@ -20,9 +20,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'glimmer/dsl/xml/node_parent_expression'
-require 'glimmer/dsl/xml/xml_expression'
 require 'glimmer/dsl/static_expression'
 require 'glimmer/dsl/top_level_expression'
+require 'glimmer/xml/html_node'
 
 module Glimmer
   module DSL
@@ -34,11 +34,7 @@ module Glimmer
         include NodeParentExpression
 
         def interpret(parent, keyword, *args, &block)
-          xml_expression.interpret(parent, keyword, *args, &block)
-        end
-
-        def xml_expression
-          @xml_expression ||= XmlExpression.new
+          Glimmer::XML::HtmlNode.new(parent, keyword.to_s, args, &block)
         end
       end
     end

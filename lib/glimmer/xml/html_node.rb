@@ -1,3 +1,4 @@
+
 # Copyright (c) 2020 - Andy Maleh
 # 
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -19,26 +20,20 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'glimmer/dsl/engine'
-# Dir[File.expand_path('../*_expression.rb', __FILE__)].each {|f| require f} # cannot in Opal, disabling automated requires for now
-require 'glimmer/dsl/xml/text_expression'
-require 'glimmer/dsl/xml/tag_expression'
-require 'glimmer/dsl/xml/xml_node_expression'
-require 'glimmer/dsl/xml/html_expression'
-require 'glimmer/dsl/xml/meta_expression'
-require 'glimmer/dsl/xml/name_space_expression'
+require 'glimmer/xml/node'
+require 'glimmer/xml/html_visitor'
+require 'glimmer/xml/xml_visitor'
 
 module Glimmer
-  module DSL
-    module XML
-      Engine.add_dynamic_expressions(
-        XML,
-        %w[
-          text
-          tag
-          xml_node
-        ]
-      )
+  module XML
+    class HtmlNode < Node
+      def to_xml
+        node_visitor = @name_space.nil? ? HtmlVisitor.new : XmlVisitor.new
+        DepthFirstSearchIterator.new(self, node_visitor).iterate
+        node_visitor.document
+      end
+      alias to_html to_xml
+      alias to_s to_xml      
     end
   end
 end

@@ -1,4 +1,4 @@
-# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML 1.0.0 (& HTML)
+# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML 1.1.0 (& HTML)
 [![Gem Version](https://badge.fury.io/rb/glimmer-dsl-xml.svg)](http://badge.fury.io/rb/glimmer-dsl-xml)
 [![Travis CI](https://travis-ci.com/AndyObtiva/glimmer-dsl-xml.svg?branch=master)](https://travis-ci.com/github/AndyObtiva/glimmer-dsl-xml)
 [![Coverage Status](https://coveralls.io/repos/github/AndyObtiva/glimmer-dsl-xml/badge.svg?branch=master)](https://coveralls.io/github/AndyObtiva/glimmer-dsl-xml?branch=master)
@@ -23,7 +23,7 @@ Please follow these instructions to make the `glimmer` command available on your
 
 Run this command to install directly:
 ```
-gem install glimmer-dsl-xml -v 1.0.0
+gem install glimmer-dsl-xml -v 1.1.0
 ```
 
 Note: When using JRuby, `jgem` is JRuby's version of `gem` command. RVM allows running `gem` as an alias in JRuby. Otherwise, you may also run `jruby -S gem install ...`
@@ -38,7 +38,7 @@ That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
 Add the following to `Gemfile` (after `glimmer-dsl-swt` and/or `glimmer-dsl-opal` if included too):
 ```
-gem 'glimmer-dsl-xml', '~> 1.0.0'
+gem 'glimmer-dsl-xml', '~> 1.1.0'
 ```
 
 And, then run:
@@ -56,20 +56,25 @@ That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
 ## XML DSL
 
-Simply start with `html` keyword and add HTML inside its block using Glimmer DSL syntax.
-Once done, you may call `to_s`, `to_xml`, or `to_html` to get the formatted HTML output.
+Simply start with the `html`, `xml`, `name_space`, or `tag` keyword and add XML/HTML inside its block using Glimmer DSL for XML syntax.
+Once done, you may call `to_s`, `to_xml`, or `to_html` to get the formatted XML/HTML output.
 
 Here are all the Glimmer XML DSL top-level keywords:
-- `html`
-- `tag`: enables custom tag creation for exceptional cases by passing tag name as '_name' attribute
+- `html`: renders partial HTML just like `xml` (not having body/head) or full HTML document (having body/head), automatically including doctype (`<!DOCTYPE html>`) and surrounding content by the `<html></html>` tag
+- `xml`: renders XML/XHTML content (e.g. `xml {span {'Hello'}; br}.to_s` renders `<span>Hello</span><br />`)
 - `name_space`: enables namespacing html tags
+- `tag`: enables custom tag creation for exceptional cases (e.g. `p` as reserved Ruby keyword) by passing tag name as '_name' attribute
 
 Element properties are typically passed as a key/value hash (e.g. `section(id: 'main', class: 'accordion')`) . However, for properties like "selected" or "checked", you must leave value `nil` or otherwise pass in front of the hash (e.g. `input(:checked, type: 'checkbox')` )
 
-Example (basic HTML):
+Example (full HTML document):
 
 ```ruby
-@xml = html {
+require 'glimmer-dsl-xml'
+
+include Glimmer
+
+@html = html {
   head {
     meta(name: "viewport", content: "width=device-width, initial-scale=2.0")
   }
@@ -77,33 +82,63 @@ Example (basic HTML):
     h1 { "Hello, World!" }
   }
 }
+puts @html
+```
+
+Output:
+
+```
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=2.0" /></head><body><h1>Hello, World!</h1></body></html>
+```
+
+Example (partial HTML fragment):
+
+```ruby
+require 'glimmer-dsl-xml'
+
+include Glimmer
+
+@html = html {
+  h1 { "Hello, World!" }
+}
+puts @html
+```
+
+Output:
+
+```
+<h1>Hello, World!</h1>
+```
+
+Example (basic XML):
+
+```ruby
+require 'glimmer-dsl-xml'
+
+include Glimmer
+
+@xml = xml {
+  h1 { "Hello, World!" }
+}
 puts @xml
 ```
 
 Output:
 
 ```
-<html><head><meta name="viewport" content="width=device-width, initial-scale=2.0" /></head><body><h1>Hello, World!</h1></body></html>
-```
-
-Example (explicit XML tag):
-
-```ruby
-puts tag(:_name => "DOCUMENT")
-```
-
-Output:
-
-```
-<DOCUMENT/>
+<h1>Hello, World!</h1>
 ```
 
 Example (XML namespaces using `name_space` keyword):
 
 ```ruby
-@xml = name_space(:w3c) {
-  html(:id => "thesis", :class => "document") {
-    body(:id => "main") {
+require 'glimmer-dsl-xml'
+
+include Glimmer
+
+@xml = name_space(:acme) {
+  product(:id => "thesis", :class => "document") {
+    component(:id => "main") {
     }
   }
 }
@@ -113,23 +148,43 @@ puts @xml
 Output:
 
 ```
-<w3c:html id="thesis" class="document"><w3c:body id="main"></w3c:body></w3c:html>
+<acme:product id="thesis" class="document"><acme:component id="main"></acme:component></acme:product>
 ```
 
 Example (XML namespaces using dot operator):
 
 ```ruby
-@xml = tag(:_name => "DOCUMENT") {
-  document.body(document.id => "main") {
+  require 'glimmer-dsl-xml'
+  
+  include Glimmer
+  
+  @xml = xml {
+    document.body(document.id => "main") {
+    }
   }
-}
-puts @xml
+  puts @xml
 ```
 
 Output:
 
 ```
-<DOCUMENT><document:body document:id="main"></document:body></DOCUMENT>
+<document:body document:id="main"></document:body>
+```
+
+Example (custom tag):
+
+```ruby
+require 'glimmer-dsl-xml'
+
+include Glimmer
+
+puts tag(:_name => "p") {"p is a reserved keyword in Ruby"}
+```
+
+Output:
+
+```
+<p>p is a reserved keyword in Ruby</p>
 ```
 
 ## Multi-DSL Support

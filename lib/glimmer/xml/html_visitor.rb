@@ -19,26 +19,43 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'glimmer/dsl/engine'
-# Dir[File.expand_path('../*_expression.rb', __FILE__)].each {|f| require f} # cannot in Opal, disabling automated requires for now
-require 'glimmer/dsl/xml/text_expression'
-require 'glimmer/dsl/xml/tag_expression'
-require 'glimmer/dsl/xml/xml_node_expression'
-require 'glimmer/dsl/xml/html_expression'
-require 'glimmer/dsl/xml/meta_expression'
-require 'glimmer/dsl/xml/name_space_expression'
+require 'glimmer/xml/xml_visitor'
 
 module Glimmer
-  module DSL
-    module XML
-      Engine.add_dynamic_expressions(
-        XML,
-        %w[
-          text
-          tag
-          xml_node
-        ]
-      )
+  module XML
+    class HtmlVisitor < XmlVisitor
+    
+      def render_html_tag?(node)
+        if node.name == 'html'
+          node_children = node.children.select {|node_or_text| node_or_text.is_a?(Glimmer::XML::Node)}
+          if !node_children.empty?
+            children_names = node_children.map(&:name)
+            return false unless children_names.include?('head') || children_names.include?('body')
+          end
+        end
+        true
+      end
+
+      def begin_open_tag(node)
+        return unless render_html_tag?(node)
+        @document += "<!DOCTYPE html>" if node.name == 'html'
+        super(node)
+      end
+      
+      def end_open_tag(node)
+        return unless render_html_tag?(node)
+        super(node)
+      end
+      
+      def append_close_tag(node)
+        return unless render_html_tag?(node)
+        super(node)
+      end      
+      
+      def append_attributes(node)
+        return unless render_html_tag?(node)
+        super(node)
+      end
     end
   end
 end

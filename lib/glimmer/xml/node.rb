@@ -19,7 +19,6 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'glimmer'
 require 'glimmer/xml/depth_first_search_iterator'
 require 'glimmer/xml/xml_visitor'
 
@@ -28,8 +27,10 @@ module Glimmer
     class Node
       include Glimmer
 
+      # TODO change is_name_space to name_space?
+      
       attr_accessor :children, :name, :contents, :attributes, :is_name_space, :is_attribute, :name_space, :parent
-
+      
       def initialize(parent, name, attributes, &contents)
         @is_name_space = false
         @children = []
@@ -65,8 +66,12 @@ module Glimmer
       def method_missing(symbol, *args, &block)
         @is_name_space = true
         parent.children.delete(self) if parent
-        Glimmer::DSL::Engine.add_content(self, Glimmer::DSL::XML::HtmlExpression.new) {@tag = super}
+        Glimmer::DSL::Engine.add_content(self, Glimmer::DSL::XML::XmlExpression.new) {@tag = super}
         @tag
+      end
+      
+      def name_space_context?
+        attributes[:_name_space_context]
       end
 
       def to_xml
@@ -74,7 +79,6 @@ module Glimmer
         DepthFirstSearchIterator.new(self, xml_visitor).iterate
         xml_visitor.document
       end
-      alias to_html to_xml
       alias to_s to_xml
 
       def text_command(text)

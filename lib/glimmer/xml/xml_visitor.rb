@@ -48,21 +48,24 @@ module Glimmer
       end
 
       def begin_open_tag(node)
+        return if node.name == 'xml' || node.name_space_context?
         @document += "<"
         @document += "#{node.name_space.name}:" if node.name_space
         @document += node.name
       end
 
       def end_open_tag(node)
+        return if node.name == 'xml' || node.name_space_context?
         if (node.contents)
           @document += ">"
         else
           @document += " " if node.attributes.keys.size > 0
-          @document += "/>"
+          @document += " />"
         end
       end
 
       def append_close_tag(node)
+        return if node.name == 'xml' || node.name_space_context?
         if (node.contents)
           @document += "</"
           @document += "#{node.name_space.name}:" if node.name_space
@@ -71,6 +74,7 @@ module Glimmer
       end
 
       def append_attributes(node)
+        return if node.name == 'xml' || node.name_space_context?
         Glimmer::Config.logger&.debug "Take 3"
         Glimmer::Config.logger&.debug(node.attributes)
         node.attributes.each do |attribute, value|

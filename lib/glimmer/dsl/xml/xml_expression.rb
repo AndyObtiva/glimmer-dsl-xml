@@ -20,18 +20,16 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'glimmer/dsl/xml/node_parent_expression'
-require 'glimmer/dsl/expression'
+require 'glimmer/dsl/static_expression'
+require 'glimmer/dsl/top_level_expression'
 require 'glimmer/xml/node'
 
 module Glimmer
   module DSL
     module XML
-      class XmlExpression < Expression
+      class XmlExpression < StaticExpression
+        include TopLevelExpression
         include NodeParentExpression
-
-        def can_interpret?(parent, keyword, *args, &block)
-          parent.is_a?(Glimmer::XML::Node)
-        end
 
         def interpret(parent, keyword, *args, &block)
           Glimmer::XML::Node.new(parent, keyword.to_s, args, &block)
