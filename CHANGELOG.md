@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.0
+
+- Upgrade to Glimmer 2.4.1 (automatically gets rid of `invalid log level:` output without needing v1.2.1's fix)
+
 ## 1.2.1
 
 - Get rid of `invalid log level:` output by setting `GLIMMER_LOGGER_LEVEL` env var before requiring `glimmer`

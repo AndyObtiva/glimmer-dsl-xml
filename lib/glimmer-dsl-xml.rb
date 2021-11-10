@@ -21,7 +21,5 @@
 
 $LOAD_PATH.unshift(File.expand_path('..', __FILE__))
 
-ENV['GLIMMER_LOGGER_LEVEL'] = 'error'
-
 require 'glimmer'
 require 'glimmer/dsl/xml/dsl'
