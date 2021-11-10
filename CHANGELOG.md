@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.2.1
+
+- Get rid of `invalid log level:` output by setting `GLIMMER_LOGGER_LEVEL` env var before requiring `glimmer`
+
+## 1.2.0
+
+- Upgraded to Glimmer 2
+
 ## 1.1.0
 
 - Support `xml` keyword to produce partial xml/html without the html tag in output
