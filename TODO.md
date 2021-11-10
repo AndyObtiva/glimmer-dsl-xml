@@ -4,6 +4,7 @@ Here is a list of tasks to do (moved to CHANGELOG.md once done).
 
 ## Next
 
+- Support global glimmer config option to auto convert xml attribute underscores to dashes
 - Fix issue with declaring two sibling divs with unopen empty content (no `{}`) ending up with the latter one nested under the former one
 
 ## Future
