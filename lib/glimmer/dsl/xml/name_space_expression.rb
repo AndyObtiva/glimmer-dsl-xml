@@ -51,9 +51,9 @@ module Glimmer
           unless node.is_a?(String)
             name_space_visitor = Glimmer::XML::NameSpaceVisitor.new(parent.name)
             Glimmer::XML::DepthFirstSearchIterator.new(node, name_space_visitor).iterate
-            def node.process_block(block)
-              Glimmer::Config.logger&.debug 'block'
-            end
+#             def node.process_block(block)
+#               Glimmer::Config.logger&.debug 'block'
+#             end
           end
           parent.children << node if parent and !parent.children.include?(node)
           node

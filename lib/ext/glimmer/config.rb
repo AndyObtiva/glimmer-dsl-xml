@@ -1,4 +1,4 @@
-# Copyright (c) 2020 - Andy Maleh
+# Copyright (c) 2007-2021 Andy Maleh
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -19,9 +19,23 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+require 'glimmer/config'
 
-$LOAD_PATH.unshift(File.expand_path('..', __FILE__))
-
-require 'glimmer'
-require 'ext/glimmer/config'
-require 'glimmer/dsl/xml/dsl'
+module Glimmer
+  module Config
+    class << self
+      # Tells Glimmer to automatically convert underscores in xml attribute names into dashes only when passed in as symbols (not strings)
+      def xml_attribute_underscore=(value)
+        @@xml_attribute_underscore = value
+      end
+  
+      def xml_attribute_underscore
+        if defined?(@@xml_attribute_underscore) && @@xml_attribute_underscore
+          @@xml_attribute_underscore
+        else
+          @@xml_attribute_underscore = '_'
+        end
+      end
+    end
+  end
+end

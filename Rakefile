@@ -20,7 +20,7 @@ unless jeweler_required.nil?
     gem.homepage = "http://github.com/AndyObtiva/glimmer-dsl-xml"
     gem.license = "MIT"
     gem.summary = %Q{Glimmer DSL for XML}
-    gem.description = %Q{Glimmer DSL for XML (& HTML)}
+    gem.description = %Q{Glimmer DSL for XML & HTML}
     gem.email = "andy.am@gmail.com"
     gem.authors = ["AndyMaleh"]
     gem.executables = []

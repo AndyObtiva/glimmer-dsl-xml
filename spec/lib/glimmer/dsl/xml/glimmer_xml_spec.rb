@@ -2,6 +2,10 @@ require "spec_helper"
   
 describe "Glimmer Xml" do
   include Glimmer
+  
+  after do
+    Glimmer::Config.xml_attribute_underscore = nil # resets it
+  end
 
   it "tests single html tag" do
     @target = html
@@ -57,6 +61,25 @@ describe "Glimmer Xml" do
     }
   
     expect(@target.to_xml).to eq('<!DOCTYPE html><html><body><video src="http://videos.org/1.mp4" loop controls  /></body></html>')
+  end
+
+  it "renders html tag with nested body and video having underscore-containing symbol and string attributes, including non-value attributes (e.g. data_loop)" do
+    expect(Glimmer::Config.xml_attribute_underscore).to eq('_')
+    @target = html {
+      body {
+        video(:data_loop, 'data_controls', data_src: "http://videos.org/1.mp4", 'data_dest' => 'www')
+      }
+    }
+    expect(@target.to_xml).to eq('<!DOCTYPE html><html><body><video data_src="http://videos.org/1.mp4" data_dest="www" data_loop data_controls  /></body></html>')
+    
+    Glimmer::Config.xml_attribute_underscore = '-'
+    expect(Glimmer::Config.xml_attribute_underscore).to eq('-')
+    @target = html {
+      body {
+        video(:data_loop, 'data_controls', data_src: "http://videos.org/1.mp4", 'data_dest' => 'www')
+      }
+    }
+    expect(@target.to_xml).to eq('<!DOCTYPE html><html><body><video data-src="http://videos.org/1.mp4" data_dest="www" data-loop data_controls  /></body></html>')
   end
 
   it "renders html tag with nested head and link" do

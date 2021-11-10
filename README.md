@@ -1,4 +1,4 @@
-# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML & HTML 1.3.0
+# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML & HTML 1.3.1
 [![Gem Version](https://badge.fury.io/rb/glimmer-dsl-xml.svg)](http://badge.fury.io/rb/glimmer-dsl-xml)
 [![Travis CI](https://travis-ci.com/AndyObtiva/glimmer-dsl-xml.svg?branch=master)](https://travis-ci.com/github/AndyObtiva/glimmer-dsl-xml)
 [![Coverage Status](https://coveralls.io/repos/github/AndyObtiva/glimmer-dsl-xml/badge.svg?branch=master)](https://coveralls.io/github/AndyObtiva/glimmer-dsl-xml?branch=master)
@@ -25,7 +25,7 @@ Please follow these instructions to make the `glimmer` command available on your
 
 Run this command to install directly:
 ```
-gem install glimmer-dsl-xml -v 1.3.0
+gem install glimmer-dsl-xml -v 1.3.1
 ```
 
 Note: When using JRuby, `jgem` is JRuby's version of `gem` command. RVM allows running `gem` as an alias in JRuby. Otherwise, you may also run `jruby -S gem install ...`
@@ -40,7 +40,7 @@ That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
 Add the following to `Gemfile` (after `glimmer-dsl-swt` and/or `glimmer-dsl-opal` if included too):
 ```
-gem 'glimmer-dsl-xml', '~> 1.3.0'
+gem 'glimmer-dsl-xml', '~> 1.3.1'
 ```
 
 And, then run:
@@ -179,6 +179,65 @@ Output:
 ```
 <p>p is a reserved keyword in Ruby</p>
 ```
+
+## Glimmer Config
+
+### `xml_attribute_underscore`
+
+(default value: `'_'`)
+
+Calling the following code enables auto-conversion of xml attribute underscores into dashes in `Symbol` attribute names (but not `String` attribute names):
+
+```ruby
+Glimmer::Config.xml_attribute_underscore = '-'
+```
+
+Example:
+
+```ruby
+require 'glimmer-dsl-xml'
+
+Glimmer::Config.xml_attribute_underscore = '-'
+
+include Glimmer
+
+document = html {
+  body {
+    video(:data_loop, data_src: "http://videos.org/1.mp4")
+  }
+}
+
+puts document
+```
+    
+```
+<!DOCTYPE html><html><body><video data-src="http://videos.org/1.mp4" data-loop  /></body></html>
+```
+
+Note that strings are intentionally ignored to enable using underscores when needed.
+
+Example:
+
+```ruby
+require 'glimmer-dsl-xml'
+
+Glimmer::Config.xml_attribute_underscore = '-'
+
+include Glimmer
+
+document = html {
+  body {
+    video('data_loop', 'data_src' => "http://videos.org/1.mp4")
+  }
+}
+
+puts document
+```
+    
+```
+<!DOCTYPE html><html><body><video data_src="http://videos.org/1.mp4" data_loop  /></body></html>
+```
+
 
 ## Multi-DSL Support
 

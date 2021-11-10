@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.1
+
+- Support `Glimmer::Config.xml_attribute_underscore = '-'` to auto convert xml attribute underscores to dashes (or any character) only in symbols, but not strings
+
 ## 1.3.0
 
 - Upgrade to Glimmer 2.4.1 (automatically gets rid of `invalid log level:` output without needing v1.2.1's fix)
