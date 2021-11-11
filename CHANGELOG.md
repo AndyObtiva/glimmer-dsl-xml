@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.2
+
+- Relaxed glimmer dependency to between 2.4.1 and 3.0.0
+- Fix issue with `Glimmer::Config.xml_attribute_underscore` not available due to a conflict with other Glimmer gems having `ext` directory, by renaming this gem's `ext` directory to `glimmer-dsl-xml-ext`
+
 ## 1.3.1
 
 - Support `Glimmer::Config.xml_attribute_underscore = '-'` to auto convert xml attribute underscores to dashes (or any character) only in symbols, but not strings

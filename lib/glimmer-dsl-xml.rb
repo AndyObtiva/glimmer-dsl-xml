@@ -23,5 +23,5 @@
 $LOAD_PATH.unshift(File.expand_path('..', __FILE__))
 
 require 'glimmer'
-require 'ext/glimmer/config'
+require 'glimmer-dsl-xml-ext/glimmer/config'
 require 'glimmer/dsl/xml/dsl'
