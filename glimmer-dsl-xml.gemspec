@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["AndyMaleh".freeze]
-  s.date = "2021-11-10"
+  s.date = "2021-11-11"
   s.description = "Glimmer DSL for XML & HTML".freeze
   s.email = "andy.am@gmail.com".freeze
   s.extra_rdoc_files = [
