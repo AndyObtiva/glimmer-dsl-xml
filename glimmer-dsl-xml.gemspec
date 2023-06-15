@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["AndyMaleh".freeze]
-  s.date = "2023-06-13"
+  s.date = "2023-06-15"
   s.description = "Glimmer DSL for XML & HTML".freeze
   s.email = "andy.am@gmail.com".freeze
   s.extra_rdoc_files = [
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md",
     "VERSION",
-    "lib/ext/glimmer/config.rb",
+    "lib/glimmer-dsl-xml-ext/glimmer/config.rb",
     "lib/glimmer-dsl-xml.rb",
     "lib/glimmer/dsl/xml/dsl.rb",
     "lib/glimmer/dsl/xml/html_expression.rb",
