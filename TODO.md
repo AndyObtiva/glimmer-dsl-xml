@@ -6,6 +6,7 @@ Here is a list of tasks to do (moved to CHANGELOG.md once done).
 
 - Support script-local glimmer config option to auto convert xml attribute underscores to dashes (e.g. `html(attribute_underscore: '-') { div(data_bind: 'name') {"Sean"} }` ) (similar to global glimmer config option `Glimmer::Config.xml_attribute_underscore = '-'`, but applies locally only )
 - Fix issue with declaring two sibling divs with unopen empty content (no `{}`) ending up with the latter one nested under the former one
+- Fix issue with using `super` instead of `super()` in Opal, which expects `super()`
 
 ## Future
 
@@ -15,6 +16,7 @@ Here is a list of tasks to do (moved to CHANGELOG.md once done).
 - Build a tool called glimmerize that takes HTML and transforms it to Glimmer XML syntax
 - handle/encode special characters such as #, {, }, and .
 - CDATA support
+- Include a command that converts HTML or XML into Glimmer DSL for XML syntax in Ruby.
 
 ## Maybe
 
