@@ -1,11 +1,11 @@
-# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML & HTML 1.3.2
+# [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=85 />](https://github.com/AndyObtiva/glimmer) Glimmer DSL for XML & HTML 1.4.0
 [![Gem Version](https://badge.fury.io/rb/glimmer-dsl-xml.svg)](http://badge.fury.io/rb/glimmer-dsl-xml)
 [![Travis CI](https://travis-ci.com/AndyObtiva/glimmer-dsl-xml.svg?branch=master)](https://travis-ci.com/github/AndyObtiva/glimmer-dsl-xml)
 [![Coverage Status](https://coveralls.io/repos/github/AndyObtiva/glimmer-dsl-xml/badge.svg?branch=master)](https://coveralls.io/github/AndyObtiva/glimmer-dsl-xml?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/65f487b8807f7126b803/maintainability)](https://codeclimate.com/github/AndyObtiva/glimmer-dsl-xml/maintainability)
 [![Join the chat at https://gitter.im/AndyObtiva/glimmer](https://badges.gitter.im/AndyObtiva/glimmer.svg)](https://gitter.im/AndyObtiva/glimmer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[Glimmer](https://github.com/AndyObtiva/glimmer) DSL for XML provides Ruby syntax for building XML (eXtensible Markup Language) and HTML documents. It used to be part of the [Glimmer](https://github.com/AndyObtiva/glimmer) library (created in 2007), but eventually got extracted into its own project.
+[Glimmer](https://github.com/AndyObtiva/glimmer) DSL for XML provides Ruby syntax for building XML (eXtensible Markup Language) and HTML documents, included in [Glimmer DSL for Web](https://github.com/AndyObtiva/glimmer-dsl-web) (Ruby in the Browser Web Frontend Framework) to use in Rails Frontend Development. It used to be part of the [Glimmer](https://github.com/AndyObtiva/glimmer) library (created in 2007), but eventually got extracted into its own project. The Ruby gem also includes an [HTML to Glimmer Converter](#html-to-glimmer-converter) (`html_to_glimmer`) to automatically convert legacy HTML code into Glimmer DSL syntax.
 
 Within the context of desktop development, Glimmer DSL for XML is useful in providing XML data for the [SWT Browser widget](https://github.com/AndyObtiva/glimmer-dsl-swt/blob/master/docs/reference/GLIMMER_GUI_DSL_SYNTAX.md#browser-widget).
 
@@ -21,7 +21,7 @@ Please follow these instructions to make the `glimmer` command available on your
 
 Run this command to install directly:
 ```
-gem install glimmer-dsl-xml -v 1.3.2
+gem install glimmer-dsl-xml -v 1.4.0
 ```
 
 Note: When using JRuby, `jgem` is JRuby's version of `gem` command. RVM allows running `gem` as an alias in JRuby. Otherwise, you may also run `jruby -S gem install ...`
@@ -36,7 +36,7 @@ That's it! Requiring the gem activates the Glimmer XML DSL automatically.
 
 Add the following to `Gemfile` (after `glimmer-dsl-swt` and/or `glimmer-dsl-opal` if included too):
 ```
-gem 'glimmer-dsl-xml', '~> 1.3.2'
+gem 'glimmer-dsl-xml', '~> 1.4.0'
 ```
 
 And, then run:
@@ -174,6 +174,93 @@ Output:
 
 ```
 <p>p is a reserved keyword in Ruby</p>
+```
+
+### HTML to Glimmer Converter
+
+The Ruby gem includes a HTML to Glimmer converter (`html_to_glimmer`) to automatically convert legacy HTML code into Glimmer DSL syntax.
+
+Prerequisite: the `nokogiri` Ruby gem. If not already installed, run `gem install nokogiri` before using `html_to_glimmer`.
+
+Script:
+
+[bin/html_to_glimmer](/bin/html_to_glimmer)
+
+Usage:
+
+```
+html_to_glimmer path_to_html_file
+```
+
+Example:
+
+Suppose we have an HTML file called `input.html`:
+
+```html
+<html style='max-height: 100%'>
+  <body style="max-height: 100%; font: 'Times New Roman', Arial;">
+    <h1 id="top-header" class="header" data-owner='John "Bonham" Doe'>Welcome</h1>
+    <p>It is good to have <strong>you</strong> in our <strong><em>platform</em></strong>!</p>
+    <form action="/owner" method="post">
+      <input type="text" value="you" />
+    </form>
+  </body>
+</html>
+```
+
+We can run this command:
+
+```
+html_to_glimmer input.html
+```
+
+Printout:
+
+```
+Converting from HTML syntax to Glimmer DSL Ruby syntax for input file: input.html
+Converted output file: input.html.glimmer.rb
+```
+
+Output file (`input.html.glimmer.rb`) is a runnable Ruby file containing Glimmer DSL for XML & HTML syntax:
+
+```rb
+require 'glimmer-dsl-xml'
+
+include Glimmer
+
+html_document = xml {
+  html(style: 'max-height: 100%') {
+    body(style: "max-height: 100%; font: 'Times New Roman', Arial;") {
+      h1(id: 'top-header', class: 'header', 'data-owner': 'John "Bonham" Doe') {
+        "Welcome"
+      }
+      p {
+        span {
+          "It is good to have "
+        }
+        strong {
+          "you"
+        }
+        span {
+          " in our "
+        }
+        strong {
+          em {
+            "platform"
+          }
+        }
+        span {
+          "!"
+        }
+      }
+      form(action: '/owner', method: 'post') {
+        input(type: 'text', value: 'you')
+      }
+    }
+  }
+}
+
+puts html_document.to_s
 ```
 
 ## Glimmer Config

@@ -136,3 +136,4 @@ RSpec.configure do |config|
 =end
 end
 require_relative '../lib/glimmer-dsl-xml'
+require_relative '../lib/glimmer/xml/html_to_glimmer_converter'

@@ -23,7 +23,7 @@ unless jeweler_required.nil?
     gem.description = %Q{Glimmer DSL for XML & HTML}
     gem.email = "andy.am@gmail.com"
     gem.authors = ["AndyMaleh"]
-    gem.executables = []
+    gem.executables = ['html_to_glimmer']
     gem.files = Dir['README.md', 'LICENSE.txt', 'VERSION', 'CHANGELOG.md', 'CONTRIBUTING.md', 'lib/**/*']
     # dependencies defined in Gemfile
   end

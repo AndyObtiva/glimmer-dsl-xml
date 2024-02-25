@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/glimmer/xml/html_to_glimmer_converter'
+
+usage = "***Glimmer DSL for XML & HTML - HTML to Glimmer Converter***\nPrerequisite: `nokogiri` gem (install by running: gem install nokogiri)\nUsage: html_to_glimmer path_to_html_file"
+
+if ARGV.empty?
+  puts usage
+else
+  html_file_path = ARGV.last
+  puts "Converting from HTML syntax to Glimmer DSL Ruby syntax for input file: #{html_file_path}"
+  html = File.read(html_file_path)
+  converter = Glimmer::XML::HTMLToGlimmerConverter.new
+  glimmer = converter.convert(html)
+  glimmer_file_path = "#{html_file_path}.glimmer.rb"
+  File.write(glimmer_file_path, glimmer)
+  puts "Converted output file: #{glimmer_file_path}"
+end

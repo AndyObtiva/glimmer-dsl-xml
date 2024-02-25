@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.0
+
+- `html_to_glimmer` converter command for automatically converting HTML to Glimmer DSL Ruby code
+
 ## 1.3.2
 
 - Relaxed glimmer dependency to between 2.4.1 and 3.0.0
