@@ -3,6 +3,7 @@
 ## 1.4.0
 
 - `html_to_glimmer` converter command for automatically converting HTML to Glimmer DSL Ruby code
+- Support `p` keyword directly (without having to use the custom `tag` keyword like `tag(:_name => "p")`)
 
 ## 1.3.2
 

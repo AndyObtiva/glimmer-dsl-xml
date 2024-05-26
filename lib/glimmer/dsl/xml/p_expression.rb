@@ -19,27 +19,28 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'glimmer/dsl/engine'
-# Dir[File.expand_path('../*_expression.rb', __FILE__)].each {|f| require f} # cannot in Opal, disabling automated requires for now
-require 'glimmer/dsl/xml/text_expression'
-require 'glimmer/dsl/xml/tag_expression'
-require 'glimmer/dsl/xml/xml_node_expression'
-require 'glimmer/dsl/xml/html_expression'
-require 'glimmer/dsl/xml/meta_expression'
-require 'glimmer/dsl/xml/name_space_expression'
-require 'glimmer/dsl/xml/p_expression'
+require 'glimmer/dsl/xml/node_parent_expression'
+require 'glimmer/dsl/static_expression'
+require 'glimmer/xml/node'
+
+module Kernel
+  alias pi p
+end
 
 module Glimmer
   module DSL
     module XML
-      Engine.add_dynamic_expressions(
-        XML,
-        %w[
-          text
-          tag
-          xml_node
-        ]
-      )
+      class PExpression < StaticExpression
+        include NodeParentExpression
+
+        def can_interpret?(parent, keyword, *args, &block)
+          keyword == 'p' && parent.is_a?(Glimmer::XML::Node)
+        end
+
+        def interpret(parent, keyword, *args, &block)
+          Glimmer::XML::Node.new(parent, keyword.to_s, args, &block)
+        end
+      end
     end
   end
 end

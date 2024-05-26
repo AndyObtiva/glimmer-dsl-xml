@@ -61,7 +61,7 @@ Here are all the Glimmer XML DSL top-level keywords:
 - `html`: renders partial HTML just like `xml` (not having body/head) or full HTML document (having body/head), automatically including doctype (`<!DOCTYPE html>`) and surrounding content by the `<html></html>` tag
 - `xml`: renders XML/XHTML content (e.g. `xml {span {'Hello'}; br}.to_s` renders `<span>Hello</span><br />`)
 - `name_space`: enables namespacing html tags
-- `tag`: enables custom tag creation for exceptional cases (e.g. `p` as reserved Ruby keyword) by passing tag name as '_name' attribute
+- `tag`: enables custom tag creation for exceptional cases (e.g. `acme:window` as reserved Ruby keyword) by passing tag name as '_name' attribute
 
 Element properties are typically passed as a key/value hash (e.g. `section(id: 'main', class: 'accordion')`) . However, for properties like "selected" or "checked", you must leave value `nil` or otherwise pass in front of the hash (e.g. `input(:checked, type: 'checkbox')` )
 
@@ -167,13 +167,13 @@ Output:
 Example (custom tag):
 
 ```ruby
-puts tag(:_name => "p") {"p is a reserved keyword in Ruby"}
+puts tag(:_name => "acme:window") {"This is a window under acme inc."}
 ```
 
 Output:
 
 ```
-<p>p is a reserved keyword in Ruby</p>
+<acme:window>This is a window under acme inc.</acme:window>
 ```
 
 ### HTML to Glimmer Converter

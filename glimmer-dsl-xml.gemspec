@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
     "lib/glimmer/dsl/xml/meta_expression.rb",
     "lib/glimmer/dsl/xml/name_space_expression.rb",
     "lib/glimmer/dsl/xml/node_parent_expression.rb",
+    "lib/glimmer/dsl/xml/p_expression.rb",
     "lib/glimmer/dsl/xml/tag_expression.rb",
     "lib/glimmer/dsl/xml/text_expression.rb",
     "lib/glimmer/dsl/xml/xml_expression.rb",

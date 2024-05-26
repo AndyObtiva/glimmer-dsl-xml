@@ -53,6 +53,18 @@ describe "Glimmer Xml" do
     expect(@target.to_xml).to eq('<!DOCTYPE html><html id="thesis" class="document"><body id="main"></body></html>')
   end
   
+  it "renders html tag with nested body and p with attributes and text content" do
+    @target = html {
+      body {
+        p(class: 'description') {
+          "This is a description!"
+        }
+      }
+    }
+  
+    expect(@target.to_xml).to eq('<!DOCTYPE html><html><body><p class="description">This is a description!</p></body></html>')
+  end
+  
   it "renders html tag with nested body and video with attributes, including non-value attributes (e.g. loop)" do
     @target = html {
       body {
