@@ -3,7 +3,8 @@
 ## 1.4.0
 
 - `html_to_glimmer` converter command for automatically converting HTML to Glimmer DSL Ruby code
-- Support `p` keyword directly (without having to use the custom `tag` keyword like `tag(:_name => "p")`)
+- Support `p` keyword directly within Glimmer DSL for XML (without having to use the custom `tag` keyword like `tag(:_name => "p")`)
+- Provide `Kernel#pi` alias in case someone needs to use Ruby `p` inside the `xml` or `html` block of Glimmer DSL for XML
 
 ## 1.3.2
 
