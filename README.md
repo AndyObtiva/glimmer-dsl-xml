@@ -263,6 +263,8 @@ html_document = xml {
 puts html_document.to_s
 ```
 
+Note that text nodes are converted into `span` nodes as that is the recommended way of including them in Glimmer DSL for XML at the moment.
+
 ## Glimmer Config
 
 ### `xml_attribute_underscore`
