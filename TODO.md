@@ -4,7 +4,7 @@ Here is a list of tasks to do (moved to CHANGELOG.md once done).
 
 ## Next
 
-- Support Paragraph sub-DSL
+- Support Paragraph Formatting sub-DSL in `html_to_glimmer` converter
 - Support `html_to_glimmer` option to render attributes having dash (`-`) using underscore instead of quoted dash attribute (e.g. `input(data_name: 'John')` instead of `input('data-name': 'John')`)
 - Support script-local glimmer config option to auto convert xml attribute underscores to dashes (e.g. `html(attribute_underscore: '-') { div(data_bind: 'name') {"Sean"} }` ) (similar to global glimmer config option `Glimmer::Config.xml_attribute_underscore = '-'`, but applies locally only )
 - Fix issue with declaring two sibling divs with unopen empty content (no `{}`) ending up with the latter one nested under the former one
